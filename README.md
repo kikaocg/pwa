@@ -9,6 +9,8 @@ Progressive Web Apps and hybrid applications
 
 # Vibe News
 Application developed during the course. 
+- Find your next experience
+- Search popular events happening in your location 
 
 ## Programming Languages
 - JavaScript, CSS, HTML
