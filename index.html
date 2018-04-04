@@ -4,33 +4,32 @@
     <meta charset="utf-8">
     <title>EVENT NEWS</title>
     <link rel="stylesheet" href="css/main.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
-    <header class="py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-            <div class="col col-lg-2"></div>
-            <div class="col-md-auto text-center">
-                <h2 class="header-logo text-success">Event News</h2>
-            </div>
-            <div class="col col-lg-2"></div>
-        </div>
+<div>
+    <header>
         <div class="jumbotron">
             <div class="container">
-                <h1 class="display-3 text-center"><img src="/static/img/logo.png" class="App-logo" alt="logo" width="200" /></h1>
+                <h1 class="display-3 text-center">
+                    <img src="/static/img/logo.png" class="App-logo" alt="logo" width="184"/>
+                </h1>
             </div>
         </div>
     </header>
+
+    <div class="container">
+        <h3 class="text-center">Eventos acontecendo em Campina Grande</h3><br>
+        <div id="events"></div>
+    </div>
+
     <footer>
         <p>EVENT NEWS - Version: 0.0.1</p>
     </footer>
-</div>
 
-<script src="library/jquery-3.3.1.min.js"></script>
-<script src="js/api.js"></script>
-<script src="js/bootstrap.min.js"></script>
-
+    <script src="library/jquery-3.3.1.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="library/moment.min.js"></script>
 </body>
 </html>
