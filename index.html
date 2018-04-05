@@ -25,14 +25,27 @@
         <h3 class="text-center">Eventos acontecendo em Campina Grande</h3><br>
         <div id="events" class="row"></div>
     </div>
+</div>
 
-    <footer>
-        <p>EVENT NEWS - Version: 0.0.1</p>
-    </footer>
+<footer>
+    <p>EVENT NEWS - Version: 0.0.1</p>
+</footer>
 
-    <script src="library/jquery-3.3.1.min.js"></script>
-    <script src="js/api.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="library/moment.min.js"></script>
+<script src="library/jquery-3.3.1.min.js"></script>
+<script src="js/api.js"></script>
+<script src="library/bootstrap.min.js"></script>
+<script src="library/moment.min.js"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw-event-news.js').then(
+            function (registration) {
+                console.log('Registrado com scope: ', registration)
+            }
+        ).catch(function (error) {
+            console.error(error)
+        });
+    }
+</script>
+
 </body>
 </html>
