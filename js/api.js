@@ -52,7 +52,6 @@
         $events.empty();
 
         if(res.events.length) {
-            $events.append($('<row>'));
             for(var i=0; i < res.events.length; i++) {
                 $events.append(getNewsHtml(res.events[i]));
             }
@@ -62,7 +61,7 @@
     }
 
     function getNewsHtml(event) {
-        var card = $('<div>').addClass('col-lg-4 col-sm-4 col-md-6 mb-4');
+        var card = $('<div>').addClass('card col-lg-4 col-sm-4 col-md-6 mb-4');
         card = addImage(card);
         card = addBodyTitle(card);
         card = addBodyActions(card);

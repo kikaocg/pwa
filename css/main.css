@@ -20,6 +20,15 @@ button.btn .btn-link {
     color: #5cb85c;
 }
 
+button.bt-default {
+    padding: 0 16px;
+    color: white;
+    font-size: 100%;
+    text-transform: uppercase;
+    line-height: 52px;
+    outline: none;
+}
+
 img {
     max-height: 100%;
     max-width: 100%;
