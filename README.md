@@ -17,5 +17,5 @@ Application developed during the course.
 - PWA
 
 ## Demo
+- <a href="https://event-news.firebaseapp.com/" target="_blank">Event News</a>
 
-- [Event News](https://event-news.firebaseapp.com/)
