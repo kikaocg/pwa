@@ -15,3 +15,7 @@ Application developed during the course.
 ## Programming Languages
 - JavaScript, CSS, HTML
 - PWA
+
+## Demo
+
+- [Event News](https://event-news.firebaseapp.com/)
