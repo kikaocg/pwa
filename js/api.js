@@ -7,6 +7,66 @@
 
     getEventNews();
 
+    var permissionNotification = false;
+
+    if ('Notification' in window) {
+        permissionNotification = Notification.permission;
+        if (!permissionNotification) {
+            Notification.requestPermission(function (perm) {
+                permissionNotification = perm;
+            })
+        }
+    }
+
+    var swPush;
+
+    if ('serviceWorker' in navigator && 'PushManager' in window){
+        window.addEventListener('load', function () {
+            navigator.serviceWorker.register('pwa-news-sw-push.js').then(
+                function (swRegister) {
+                    swPush = swRegister;
+                }
+            )
+        })
+    }
+
+    function getSubscription() {
+        if (swPush) {
+            swPush.pushManager.getSubscription().then(
+                function (subscription) {
+                    if (subscription) {
+                        console.log('User is subscribed.')
+                    } else {
+                        console.log('User is NOT subscribed.')
+                    }
+                }
+            )
+        }
+    }
+
+    function registerUser(){
+        swPush.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlB64ToUint //TODO
+        }).then(function (subscription) {
+            console.log(JSON.stringify(subscription));
+        })
+    }
+
+
+    window.onblur = function onBlur() {
+        console.log('exit');
+        if (permissionNotification) {
+            setTimeout(function () {
+                this.navigator.serviceWorker.getRegistration().then(
+                    function (reg) {
+                        reg.showNotification("Olá tem novos eventos")
+                    }
+                )
+            }, 3000);
+        }
+    };
+
     function getEventNews() {
         var url = 'https://www.eventbriteapi.com/v3/events/search/?location.address=Campina+Grande&token=CUEVB3VAZGOJSXC2MFCU';
 
@@ -15,12 +75,12 @@
             return;
         }
 
-        xhr.onload = function() {
+        xhr.onload = function () {
             var text = JSON.parse(xhr.responseText);
             success(text);
         };
 
-        xhr.onerror = function() {
+        xhr.onerror = function () {
             alert('Woops, there was an error making the request.');
         };
 
@@ -51,8 +111,8 @@
         var $events = $("#events");
         $events.empty();
 
-        if(res.events.length) {
-            for(var i=0; i < res.events.length; i++) {
+        if (res.events.length) {
+            for (var i = 0; i < res.events.length; i++) {
                 $events.append(getNewsHtml(res.events[i]));
             }
         } else {

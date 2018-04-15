@@ -1,0 +1,4 @@
+[0415/114104.215:ERROR:file_io_win.cc(179)] CreateFile C:\Program Files (x86)\temp\settings.dat: Acesso negado. (0x5)
+[0415/114208.222:ERROR:file_io_win.cc(179)] CreateFile C:\Program Files (x86)\temp\settings.dat: Acesso negado. (0x5)
+[0415/114208.244:ERROR:registration_protocol_win.cc(84)] TransactNamedPipe: O pipe foi finalizado. (0x6D)
+[0415/114208.250:ERROR:file_io_win.cc(179)] CreateFile C:\Program Files (x86)\temp\settings.dat: Acesso negado. (0x5)

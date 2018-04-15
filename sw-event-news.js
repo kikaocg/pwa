@@ -11,7 +11,8 @@
         '/js/api.js',
         '/library/bootstrap.min.js',
         '/library/jquery-3.3.1.min.js',
-        '/library/moment.min.js'
+        '/library/moment.min.js',
+        '/library/firebase.js'
     ];
 
     self.addEventListener('install', function (event) {

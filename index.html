@@ -22,6 +22,9 @@
     </header>
 
     <div class="container">
+        <div>
+            <button type="button"></button>
+        </div>
         <h3 class="text-center">Eventos acontecendo em Campina Grande</h3><br>
         <div id="events" class="row"></div>
     </div>
@@ -35,6 +38,8 @@
 <script src="js/api.js"></script>
 <script src="library/bootstrap.min.js"></script>
 <script src="library/moment.min.js"></script>
+<script src="library/firebase.js"></script>
+
 <script>
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sw-event-news.js').then(
@@ -46,6 +51,17 @@
         });
     }
 </script>
-
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAkvEFPShz5WJ578IGBq8B9HeQ3RmywQSI",
+        authDomain: "event-news.firebaseapp.com",
+        databaseURL: "https://event-news.firebaseio.com",
+        projectId: "event-news",
+        storageBucket: "",
+        messagingSenderId: "68144381651"
+    };
+    firebase.initializeApp(config);
+</script>
 </body>
 </html>
