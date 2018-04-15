@@ -16,6 +16,12 @@ Application developed during the course.
 - JavaScript, CSS, HTML
 - PWA
 
+## CI/CD
+- Codeship
+
+## Quality
+- LightHouse
+
 ## Demo
 - <a href="https://event-news.firebaseapp.com/" target="_blank">Event News</a>
 
