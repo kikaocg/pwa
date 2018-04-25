@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     let swPush;
-    const applicationServerPublicKey = 'BH9adO8NxsP9AlP4L7T_qkabd1SVLJ4wznboOZ4t4pf0DfvoODcQ_P4ywE-wEJqJAJvXwJyHMONs8Esqx_ARfd8';
+    const applicationServerPublicKey = 'BGqtyQrP6vOOuih-n24sVMJ8xoWYDkqevhw4WjDCWoCRGAvWr7bGKexZ1tD2aUk01rzxC-yDccSiUK6UXnsJLlE';
     const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
 
     function urlB64ToUint8Array(base64String) {
