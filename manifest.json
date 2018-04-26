@@ -3,6 +3,8 @@
   "short_name": "Event News",
   "orientation": "portrait",
   "display": "standalone",
+  "theme_color": "#E39802",
+  "background_color":"#E39802",
   "start_url": "/index.html",
   "related_applicarions": [
     {
@@ -20,7 +22,11 @@
       "src": "static/img/android-chrome-256x256.png",
       "sizes": "256x256",
       "type": "image/png"
+    },
+    {
+      "src": "static/img/android-chrome-256x256.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
-  ],
-  "background_color": "#E39802"
+  ]
 }

@@ -38,3 +38,19 @@ button {
     cursor: pointer;
 }
 
+.btn-primary {
+    color: #fff;
+    background-color: #2424FF !important;
+    border-color: #2424FF !important;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #208437 !important;
+    border-color: #208437 !important;
+}
+
+.text {
+    color: #2a5e92 !important; 
+}
+

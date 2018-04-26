@@ -5,9 +5,6 @@
     const API = 'https://www.eventbriteapi.com/v3';
     const FILES_SHELL = [
         '/',
-        '/css/bootstrap.min.css',
-        '/css/core.css',
-        '/css/main.css',
         '/js/api.js',
         '/js/install-banner.js',
         '/js/push.js',

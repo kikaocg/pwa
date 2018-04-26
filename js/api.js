@@ -119,6 +119,8 @@
                     $('<img>')
                         .attr('src', event.logo.original.url)
                         .attr('alt', event.name.text)
+                        .attr('height',200)
+                        .attr('width',200)
                         .addClass('card-img-top')
                 );
             }
@@ -133,8 +135,8 @@
                 $('<div>')
                     .addClass('card-body')
                     .append($('<h5>').addClass('card-title').append(event.name.text))
-                    .addClass('card-text').append($('<h6>').addClass('text-muted').append('Start: ').append(eventStartTime))
-                    .addClass('card-text').append($('<h6>').addClass('text-muted').append('End: ').append(eventEndTime))
+                    .addClass('card-text').append($('<h6>').addClass('text').append('Start: ').append(eventStartTime))
+                    .addClass('card-text').append($('<h6>').addClass('text').append('End: ').append(eventEndTime))
                 // .append($('<p>').addClass('card-text').append(event.description.text))
             );
         }
