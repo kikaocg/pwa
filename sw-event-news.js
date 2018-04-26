@@ -1,18 +1,25 @@
 (function () {
     'use strict';
-    var CACHE_SHELL = 'pwa-news-shell-v1';
-    var CACHE_DATA = 'pwa-news-data-v1';
-    var API = 'https://www.eventbriteapi.com/v3';
-    var FILES_SHELL = [
+    const CACHE_SHELL = 'pwa-news-shell-v1';
+    const CACHE_DATA = 'pwa-news-data-v1';
+    const API = 'https://www.eventbriteapi.com/v3';
+    const FILES_SHELL = [
         '/',
-        '/css/bootstrap.min.css',
-        '/css/core.css',
-        '/css/main.css',
         '/js/api.js',
+        '/js/install-banner.js',
+        '/js/push.js',
         '/library/bootstrap.min.js',
         '/library/jquery-3.3.1.min.js',
         '/library/moment.min.js',
-        '/library/firebase.js'
+        '/library/firebase.js',
+        '/library/firebase.js.map',
+        '/static/img/icons/bell_off.svg',
+        '/static/img/icons/bell_on.svg',
+        '/static/img/android-chrome-192x192.png',
+        '/static/img/android-chrome-256x256.png',
+        '/static/img/background.jpg',
+        '/static/img/faviconEN.ico',
+        '/static/img/logo.png'
     ];
 
     self.addEventListener('install', function (event) {
@@ -65,6 +72,25 @@
             })
         );
         return self.clients.claim();
+    });
+
+    //Push notification
+    self.addEventListener('notificationclick', function (event) {
+        event.notification.close();
+        event.waitUntil(
+            clients.openWindow('/')
+        );
+    });
+
+    self.addEventListener('push', function (event) {
+        const options = {
+            body: event.data.text(),
+            icon: 'static/img/logo.png',
+            badge: 'static/img/logo.png'
+        };
+        event.waitUntil(
+            self.registration.showNotification("Novo evento", options)
+        );
     });
 
 }());

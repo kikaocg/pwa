@@ -1,82 +1,67 @@
 (function () {
     'use strict';
 
-    var city = 'campina+grande';
-    var API = 'https://www.eventbriteapi.com/v3/events/search';
-    var API_TOKEN = '&token=CUEVB3VAZGOJSXC2MFCU';
+    let city = 'campina+grande';
+    const API = 'https://www.eventbriteapi.com/v3/events/search';
+    const API_TOKEN = '&token=CUEVB3VAZGOJSXC2MFCU';
 
     getEventNews();
 
-    var permissionNotification = false;
+    let permissionNotification = false;
+    let btnAlert = document.getElementById('btn-alert');
+    let notificationIcon = document.getElementById('notification-icon');
 
-    if ('Notification' in window) {
-        permissionNotification = Notification.permission;
-        if (!permissionNotification) {
-            Notification.requestPermission(function (perm) {
-                permissionNotification = perm;
-            })
-        }
-    }
-
-    var swPush;
-
-    if ('serviceWorker' in navigator && 'PushManager' in window){
-        window.addEventListener('load', function () {
-            navigator.serviceWorker.register('pwa-news-sw-push.js').then(
-                function (swRegister) {
-                    swPush = swRegister;
-                }
-            )
-        })
-    }
-
-    function getSubscription() {
-        if (swPush) {
-            swPush.pushManager.getSubscription().then(
-                function (subscription) {
-                    if (subscription) {
-                        console.log('User is subscribed.')
-                    } else {
-                        console.log('User is NOT subscribed.')
-                    }
-                }
-            )
-        }
-    }
-
-    function registerUser(){
-        swPush.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: urlB64ToUint //TODO
-        }).then(function (subscription) {
-            console.log(JSON.stringify(subscription));
-        })
-    }
-
-
-    window.onblur = function onBlur() {
-        console.log('exit');
-        if (permissionNotification) {
-            setTimeout(function () {
-                this.navigator.serviceWorker.getRegistration().then(
-                    function (reg) {
-                        reg.showNotification("Olá tem novos eventos")
-                    }
-                )
-            }, 3000);
+    btnAlert.onclick = function () {
+        if (permissionNotification === "granted") {
+            notificationIcon.src = './static/img/icons/bell_on.svg';
+        } else {
+            notificationIcon.src = './static/img/icons/bell_off.svg';
         }
     };
 
-    function getEventNews() {
-        var url = 'https://www.eventbriteapi.com/v3/events/search/?location.address=Campina+Grande&token=CUEVB3VAZGOJSXC2MFCU';
+    if('Notification' in window) {
+        permissionNotification = Notification.permission;
+        if (permissionNotification === 'granted') {
+            notificationIcon.src = '/static/img/icons/bell_on.svg';
+        } else {
+            notificationIcon.src = '/static/img/icons/bell_off.svg';
+        }
+    }
 
-        var xhr = createCORSRequest('GET', url);
+    let titlePage = document.getElementById('titlePage');
+    window.addEventListener('online', handleStateChange);
+    window.addEventListener('offline', handleStateChange);
+
+    function handleStateChange() {
+        let state = navigator.onLine ? 'online' : 'offline';
+        if(state === "offline") {
+            titlePage.innerHTML = "(Offline)";
+        } else {
+            titlePage.innerHTML = "(Online)";
+        }
+    }
+
+    if("ondevicelight" in window){
+        window.addEventListener("deviceLight", onUpdateDeviceLight);
+    }else{
+        console.log("Your device don't support deviceLight");
+    }
+
+    function onUpdateDeviceLight(event){
+        let colorPart = Math.min(255, event.value).toFixed(0);
+        document.getElementById("body").style.backgroundColor =
+            "rgb(" + colorPart + ", " + colorPart + ", " + colorPart + ")";
+    }
+
+    function getEventNews() {
+        const url = 'https://www.eventbriteapi.com/v3/events/search/' + getCity()+'&token=CUEVB3VAZGOJSXC2MFCU';
+        const xhr = createCORSRequest('GET', url);
         if (!xhr) {
             return;
         }
 
         xhr.onload = function () {
-            var text = JSON.parse(xhr.responseText);
+            const text = JSON.parse(xhr.responseText);
             success(text);
         };
 
@@ -91,11 +76,11 @@
         if (city) {
             return '?location.address=' + city
         }
-        return '';
+        return 'campina+grande';
     }
 
     function createCORSRequest(method, url) {
-        var xhr = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
         if ("withCredentials" in xhr) {
             xhr.open(method, url, true);
         } else if (typeof XDomainRequest !== "undefined") {
@@ -108,11 +93,11 @@
     }
 
     function success(res) {
-        var $events = $("#events");
+        const $events = $("#events");
         $events.empty();
 
         if (res.events.length) {
-            for (var i = 0; i < res.events.length; i++) {
+            for (let i = 0; i < res.events.length; i++) {
                 $events.append(getNewsHtml(res.events[i]));
             }
         } else {
@@ -121,7 +106,7 @@
     }
 
     function getNewsHtml(event) {
-        var card = $('<div>').addClass('card col-lg-4 col-sm-4 col-md-6 mb-4');
+        let card = $('<div>').addClass('card col-lg-4 col-sm-4 col-md-6 mb-4');
         card = addImage(card);
         card = addBodyTitle(card);
         card = addBodyActions(card);
@@ -134,6 +119,8 @@
                     $('<img>')
                         .attr('src', event.logo.original.url)
                         .attr('alt', event.name.text)
+                        .attr('height',200)
+                        .attr('width',200)
                         .addClass('card-img-top')
                 );
             }
@@ -141,15 +128,15 @@
         }
 
         function addBodyTitle(card) {
-            var eventStartTime = moment(event.start.local).format('D/M/YYYY h:mm A');
-            var eventEndTime = moment(event.end.local).format('D/M/YYYY h:mm A');
+            const eventStartTime = moment(event.start.local).format('D/M/YYYY h:mm A');
+            const eventEndTime = moment(event.end.local).format('D/M/YYYY h:mm A');
 
             return card.append(
                 $('<div>')
                     .addClass('card-body')
                     .append($('<h5>').addClass('card-title').append(event.name.text))
-                    .addClass('card-text').append($('<h6>').addClass('text-muted').append('Start: ').append(eventStartTime))
-                    .addClass('card-text').append($('<h6>').addClass('text-muted').append('End: ').append(eventEndTime))
+                    .addClass('card-text').append($('<h6>').addClass('text').append('Start: ').append(eventStartTime))
+                    .addClass('card-text').append($('<h6>').addClass('text').append('End: ').append(eventEndTime))
                 // .append($('<p>').addClass('card-text').append(event.description.text))
             );
         }

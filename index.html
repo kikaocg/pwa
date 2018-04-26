@@ -3,15 +3,30 @@
 <head>
     <meta charset="utf-8">
     <title>EVENT NEWS</title>
+    <meta name="Description" content="Event News">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#E39802"/>
+    <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/core.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="shortcut icon" href="/static/img/faviconEN.ico" type="image/x-icon">
     <link rel="icon" href="/static/img/faviconEN.ico" type="image/x-icon">
 </head>
-<body>
+<body id=body>
 <div>
     <header>
+        <nav class="navbar navbar-dark bg-dark justify-content-between" style="color: #E39802">
+            <a class="navbar-brand"></a>
+            <div style="align-content: right">
+                <button id="btn-alert" class="btn btn-success my-2 my-sm-0">Notification<img id="notification-icon"
+                                                                                 src="/static/img/icons/bell_on.svg"
+                                                                                 width="30" height="30" alt="logo"></button>
+                <button id="btn-install" class="btn btn-info my-2 my-sm-0"><img id="install-icon"
+                                                                                   src="/static/img/icons/ic_home.svg"
+                                                                                   width="30" height="30" alt="logo"></button>
+            </div>
+        </nav>
         <div class="jumbotron">
             <div class="container">
                 <h1 class="display-3 text-center">
@@ -22,7 +37,7 @@
     </header>
 
     <div class="container">
-        <h3 class="text-center">Eventos acontecendo em Campina Grande</h3><br>
+        <h3 class="text-center"><label id="titlePage"></label>Eventos acontecendo em Campina Grande</h3><br>
         <div id="events" class="row"></div>
     </div>
 </div>
@@ -31,8 +46,11 @@
     <p>EVENT NEWS - Version: 0.0.1</p>
 </footer>
 
-<script src="library/jquery-3.3.1.min.js"></script>
 <script src="js/api.js"></script>
+<script src="js/push.js"></script>
+<script src="js/install-banner.js"></script>
+
+<script src="library/jquery-3.3.1.min.js"></script>
 <script src="library/bootstrap.min.js"></script>
 <script src="library/moment.min.js"></script>
 <script src="library/firebase.js"></script>
@@ -49,8 +67,7 @@
     }
 </script>
 <script>
-    // Initialize Firebase
-    var config = {
+    let config = {
         apiKey: "AIzaSyAkvEFPShz5WJ578IGBq8B9HeQ3RmywQSI",
         authDomain: "event-news.firebaseapp.com",
         databaseURL: "https://event-news.firebaseio.com",
